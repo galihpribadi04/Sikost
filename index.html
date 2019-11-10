@@ -31,13 +31,13 @@
 								<ul>
 									<li class="hassubs active">
 										<a href="index.html">Home</a>
-										<ul>
+										<!-- <ul>
 											<li><a href="categories.html">Categories</a></li>
-											<!-- <li><a href="product.html">Product</a></li> -->
-											<!-- <li><a href="cart.html">Cart</a></li> -->
-											<!-- <li><a href="checkout.html">Check out</a></li> -->
+											<li><a href="product.html">Product</a></li>
+											<li><a href="cart.html">Cart</a></li>
+											<li><a href="checkout.html">Check out</a></li>
 											<li><a href="contact.html">Contact</a></li>
-										</ul>
+										</ul> -->
 									</li>
 									<!-- <li class="hassubs">
 										<a href="categories.html">Categories</a>
@@ -56,6 +56,18 @@
 							</nav>
 							<div class="header_extra ml-auto">
 								<div class="shopping_cart">
+									<ul>
+										<li class="hassubs active">
+											<a href="login.html">Login</a>
+											<!-- <ul>
+												<li><a href="categories.html">Categories</a></li>
+												<li><a href="product.html">Product</a></li>
+												<li><a href="cart.html">Cart</a></li>
+												<li><a href="checkout.html">Check out</a></li>
+												<li><a href="contact.html">Contact</a></li>
+											</ul> -->
+										</li>
+									</ul>
 									<!-- <a href="cart.html">
 										<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 												 viewBox="0 0 489 489" style="enable-background:new 0 0 489 489;" xml:space="preserve">
@@ -70,7 +82,7 @@
 										<div>Cart <span>(0)</span></div>
 									</a> -->
 								</div>
-								<div class="search">
+								<!-- <div class="search">
 									<div class="search_icon">
 										<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 										viewBox="0 0 475.084 475.084" style="enable-background:new 0 0 475.084 475.084;"
@@ -90,7 +102,7 @@
 										</g>
 									</svg>
 									</div>
-								</div>
+								</div> -->
 								<div class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></div>
 							</div>
 						</div>
@@ -100,7 +112,7 @@
 		</div>
 		
 		<!-- Search Panel -->
-		<div class="search_panel trans_300">
+		<!-- <div class="search_panel trans_300">
 			<div class="container">
 				<div class="row">
 					<div class="col">
@@ -112,7 +124,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- Social -->
 		<div class="header_social">
@@ -139,13 +151,13 @@
 				<ul class="page_menu_nav menu_mm">
 					<li class="page_menu_item has-children menu_mm">
 						<a href="index.html">Home<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
+						<!-- <ul class="page_menu_selection menu_mm">
 							<li class="page_menu_item menu_mm"><a href="categories.html">Categories<i class="fa fa-angle-down"></i></a></li>
 							<li class="page_menu_item menu_mm"><a href="product.html">Product<i class="fa fa-angle-down"></i></a></li>
 							<li class="page_menu_item menu_mm"><a href="cart.html">Cart<i class="fa fa-angle-down"></i></a></li>
 							<li class="page_menu_item menu_mm"><a href="checkout.html">Checkout<i class="fa fa-angle-down"></i></a></li>
 							<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-						</ul>
+						</ul> -->
 					</li>
 					<li class="page_menu_item has-children menu_mm">
 						<a href="categories.html">Categories<i class="fa fa-angle-down"></i></a>
@@ -179,10 +191,14 @@
 
 	<div class="home">
 		<div class="home_slider_container">
-			
+			<div id='search-box'>
+					<form action='/search' id='search-form' method='get' target='_top'>
+					<input id='search-text' name='q' placeholder='Cari Lokasi' type='text'/>
+					<button id='search-button' type='submit' href='./list-kamar/index.php'><span>Search</span></button></form>
+				</div>
 			<!-- Home Slider -->
 			<div class="owl-carousel owl-theme home_slider">
-				
+			
 				<!-- Slider Item -->
 				<div class="owl-item home_slider_item">
 					<div class="home_slider_background" style="background-image:url(images/kost.jpeg)"></div>
