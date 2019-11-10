@@ -315,12 +315,12 @@ section
 {
 	width: 100%;
 	z-index: 1;
-	background: rgba(0,0,0,0.3);
+	background: #FFFFFF;
 }
 .header_content
 {
 	width: 100%;
-	height: 100px;
+	height: 80px;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
@@ -349,6 +349,9 @@ section
 .main_nav
 {
 	margin-left: 156px;
+}
+.topnav-right{
+	float: right;
 }
 .main_nav > ul > li
 {
@@ -438,10 +441,6 @@ section
 .hassubs ul li a:hover
 {
 	color: #1b1b1b;
-}
-.header_extra
-{
-
 }
 .shopping_cart
 {

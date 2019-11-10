@@ -320,7 +320,7 @@ section
 .header_content
 {
 	width: 100%;
-	height: 130px;
+	height: 80px;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
@@ -983,7 +983,7 @@ section
 }
 .map_row
 {
-	margin-top: 98px;
+	margin-top: 10px;
 }
 .google_map
 {
