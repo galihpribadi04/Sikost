@@ -315,12 +315,12 @@ section
 {
 	width: 100%;
 	z-index: 1;
-	background: #FFFFFF;
+	background: rgba(0,0,0,0.3);
 }
 .header_content
 {
 	width: 100%;
-	height: 130px;
+	height: 100px;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
@@ -483,6 +483,8 @@ section
 {
 	margin-left: 4px;
 }
+
+/*============Search===============*/
 .search
 {
 	display: inline-block;
@@ -590,6 +592,63 @@ section
 	font-style: italic;
 	color: #767676 !important;
 }
+.wrapper{
+  background: url("../images/bg_hero_home-1400.jpg") no-repeat center ;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search_box{
+  width: 50%;
+  position: relative;
+}
+
+.search_box input[type="text"]{
+  width: 100%;
+  padding: 20px;
+  padding-right: 60px;
+  box-sizing: border-box;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  font-size: 18px;
+  color: #fff;
+  outline: none;
+}
+
+.fa-search{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 25px;
+  color: #fff;
+  font-size: 25px;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #fff;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #fff;
+}
+
+@media screen and (max-width: 425px){
+  .search_box{
+    width: 95%;
+  }
+}
+
+/*=================End Search==================*/
 .header_social
 {
 	position: absolute;
@@ -806,7 +865,7 @@ section
 .home
 {
 	width: 100%;
-	height: 950px;
+	height: 850px;
 	background: #FFFFFF;
 	z-index: 2;
 }
@@ -1215,7 +1274,7 @@ section
 .icon_boxes
 {
 	width: 100%;
-	padding-top: 99px;
+	padding-top: 20px;
 	padding-bottom: 99px;
 	background: #FFFFFF;
 	z-index: 2;
