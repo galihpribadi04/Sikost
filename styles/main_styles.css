@@ -425,7 +425,7 @@ section
 }
 .hassubs ul li:not(:last-child)
 {
-	margin-bottom: 11px;
+	margin-bottom: 10px;
 }
 .hassubs ul li a
 {
