@@ -1,45 +1,23 @@
 <?php
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "myDB";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+
+if(isset($_POST['login'])){
+    if(empty($_POST['email']) || empty($_POST['pass'])){
+        header("location: login.php");
+    }
+    else{
+        $query= "select * from pencari where u_email='".$_POST['email']."' and u_password='".$_POST['pass']."'";
+        $result= mysqli_query($con, $query);
+        if(mysqli_fetch_assoc($result)){
+            $_SESSION['User']=$_POST['u_username'];
+            header("location:index.php");
+        }
+        else{
+            header("location:login.php");
+        }
+    }
 }
-
-$sql = "SELECT u_password FROM user where u_email=".$_POST['email'];
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-		if($row["password"]==md5($_POST["password"])){
-		
-		}
-	}
-} else {
-    echo "0 results";
+else {
+    echo 'Tidak Bekerja';
 }
-
-
-$sql = "SELECT p_password FROM pemilik where p_email=".$_POST['email'];
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-		if($row["password"]==md5($_POST["password"])){
-		
-		}
-	}
-} else {
-    echo "0 results";
-}
-$conn->close();
 ?>

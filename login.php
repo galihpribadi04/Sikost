@@ -1,7 +1,8 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Member Register</title>
+	<title>Halaman Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -22,7 +23,7 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	<?php require 'register1-rule.php'?>
+	<?php require 'login-rule.php';?>
 	<div class="limiter">
 		<div class="wrapper">
 			<div class="wrap-login100">
@@ -30,18 +31,11 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form" method=post action="">
+				<form class="login100-form validate-form" method=post action=login.php>
 					<span class="login100-form-title">
-						Register sebagai Pencari Kos
+						Member Login
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate = "Name is required">
-						<input class="input100" type="text" name="nama" placeholder="Nama">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-id-card" aria-hidden="true"></i>
-						</span>
-					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="email" placeholder="Email">
 						<span class="focus-input100"></span>
@@ -59,23 +53,23 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type=submit>
-							Register
+						<button class="login100-form-btn" type=submit name="submit">
+							Login
 						</button>
 					</div>
 
 					<div class="text-center p-t-12">
 						<span class="txt1">
-							Apakah
+							Lupa
 						</span>
-						<a class="txt2" href="register2.html">
-							Anda pemilik kost ?
+						<a class="txt2" href="#">
+							Username / Password?
 						</a>
 					</div>
 
-					<div class="text-center p-t-90">
-						<a class="txt2" href="login.html">
-							Sudah punya akun ?
+					<div class="text-center p-t-80">
+						<a class="txt2" href="register1.php">
+							Buat akunmu sekarang
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
 					</div>

@@ -1,17 +1,34 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>SIKos - Cari Kos Gampang</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Sublime project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" >
-<link rel="stylesheet" type="text/css" href="styles/contact.css">
-<link rel="stylesheet" type="text/css" href="styles/contact_responsive.css">
+	<title>SIKos - Cari Kos Gampang</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Sublime project">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" >
+	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
+	<link rel="stylesheet" type="text/css" href="styles/main_styles.css">
+	<link rel="stylesheet" type="text/css" href="styles/responsive.css">
 </head>
 <body>
+
+<!-- LogOut Logic -->
+    <?php 
+        if(isset($_GET['logout'])){
+            $filename = 'userdata/'.$_SESSION['logged-in']['user'].'.json';
+            //file_put_contents($filename ,json_encode($_SESSION['cart'], FILE_APPEND) );
+            
+            unset($_SESSION['logged-in']);
+            
+            header('Location: index.php');
+        }
+    ?>
+<!-- end LogOut Logic -->
 
 <div class="super_container">
 
@@ -23,11 +40,11 @@
 				<div class="row">
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
-							<div class="logo"><a href="index.html">SIKos</a></div>
+							<div class="logo"><a href="index.php">SIKos</a></div>
 							<nav class="main_nav">
 								<ul>
 									<li class="active">
-										<a href="index.html">Home</a>
+										<a href="index.php">Home</a>
 									</li>
 									<li><a href="contact.html">Contact</a></li>
 									<li><a href="">About Us</a></li>
@@ -35,14 +52,20 @@
 							</nav>
 							<nav class="main_nav ml-auto">
 								<ul>
-									<li class="hassubs">
-										<a href="">Login</a>
-										<ul>
-											<li><a href="login.html">Sebagai Pencari</a></li>
-											<li><a href="login.html">Sebagai Pemilik</a></li>
-										</ul>
-									</li>
-									<li><a href="register.html">Register</a></li>
+									<?php if(isset($_SESSION['logged-in'])): ?>
+										<li class="hassubs">
+											Selamat Datang, <?php echo $_SESSION['logged-in']['user']; ?>
+										</li>
+									<?php else: ?>
+										<li class="hassubs">
+											<a href="">Login</a>
+											<ul>
+												<li><a href="login.php">Sebagai Pencari</a></li>
+												<li><a href="login.php">Sebagai Pemilik</a></li>
+											</ul>
+										</li>
+										<li><a href="register1.php">Register</a></li>
+									<?php endif; ?>
 								</ul>
 							</nav>
 						</div>
@@ -112,21 +135,76 @@
 		</div>
 	</div>
 	
-	<!-- Contact -->
-	
-	<div class="contact">
+	<!-- Home -->
+
+	<div class="home">
+		<div class="wrapper">
+			<div class="search_box">
+				<input type="text" placeholder="Cari nama tempat atau alamat" name="">
+				<a href="map.html"><i class="fa fa-search" aria-hidden="true"></i></a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Icon Boxes -->
+
+	<div class="icon_boxes">
 		<div class="container">
-			<div class="row map_row">
-				<div class="col">
-					<!-- Google Map -->
-					<div class="map">
-						<div id="google_map" class="google_map">
-							<div class="map_container">
-								<iframe width="100%" height="575px" src="https://maps.google.com/maps?q=its&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
-							</div>
+			<div class="row icon_box_row">
+				
+				<!-- Icon Box -->
+				<div class="col-lg-4 icon_box_col">
+					<div class="icon_box">
+						<div class="icon_box_image"><img src="images/icon_1.svg" alt=""></div>
+						<div class="icon_box_title">Informatif dan Jelas</div>
+						<div class="icon_box_text">
+							<p>Kami menyediakan tampilan untuk pencari kost dengan mudah.</p>
 						</div>
 					</div>
+				</div>
 
+				<!-- Icon Box -->
+				<div class="col-lg-4 icon_box_col">
+					<div class="icon_box">
+						<div class="icon_box_image"><img src="images/icon_2.svg" alt=""></div>
+						<div class="icon_box_title">Free Returns</div>
+						<div class="icon_box_text">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Icon Box -->
+				<div class="col-lg-4 icon_box_col">
+					<div class="icon_box">
+						<div class="icon_box_image"><img src="images/icon_3.svg" alt=""></div>
+						<div class="icon_box_title">Layanan 24 Jam</div>
+						<div class="icon_box_text">
+							<p>Kami siap membantu anda 24 jam jika anda membutuhkan bantuan kami.</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Newsletter -->
+
+	<div class="newsletter">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="newsletter_border"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2">
+					<div class="newsletter_content text-center">
+						<div class="newsletter_title">Apakah Anda Pemilik Kos?</div>
+						<div class="newsletter_text"><p>Promosikan Kos Anda di SIKos agar lebih dikenal</p></div>
+						<a href="register2.html"><button class="newsletter_button trans_200"><span>Daftar</span></button></a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -168,8 +246,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
 <script src="plugins/greensock/animation.gsap.min.js"></script>
 <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
 <script src="plugins/easing/easing.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-<script src="js/contact.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="js/custom.js"></script>
 </body>
 </html>
