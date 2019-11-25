@@ -6,6 +6,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="Sublime project">
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" >
@@ -20,9 +21,6 @@
 <!-- LogOut Logic -->
     <?php 
         if(isset($_GET['logout'])){
-            $filename = 'userdata/'.$_SESSION['logged-in']['user'].'.json';
-            //file_put_contents($filename ,json_encode($_SESSION['cart'], FILE_APPEND) );
-            
             unset($_SESSION['logged-in']);
             
             header('Location: index.php');
@@ -42,26 +40,32 @@
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo"><a href="index.php">SIKos</a></div>
 							<nav class="main_nav">
+								<?php if(isset($_SESSION['logged-in'])): ?>
 								<ul>
-									<li class="active">
-										<a href="index.php">Home</a>
-									</li>
-									<li><a href="contact.html">Contact</a></li>
-									<li><a href="">About Us</a></li>
+									<!-- <li class="active"> -->
+									<li><a href="index.php">Kamarku</a></li>
+									<!-- </li> -->
+									<li><a href="upload.html">Pembayaran</a></li>
 								</ul>
+								<?php else: ?>
+
+								<?php endif ?>
 							</nav>
 							<nav class="main_nav ml-auto">
 								<ul>
 									<?php if(isset($_SESSION['logged-in'])): ?>
 										<li class="hassubs">
 											Selamat Datang, <?php echo $_SESSION['logged-in']['user']; ?>
+											<ul>
+												<li><a href="index.php?logout=1">Log Out</a></li>
+											</ul>
 										</li>
 									<?php else: ?>
 										<li class="hassubs">
 											<a href="">Login</a>
 											<ul>
 												<li><a href="login.php">Sebagai Pencari</a></li>
-												<li><a href="login.php">Sebagai Pemilik</a></li>
+												<li><a href="login2.php">Sebagai Pemilik</a></li>
 											</ul>
 										</li>
 										<li><a href="register1.php">Register</a></li>
@@ -85,63 +89,13 @@
 		</div>
 	</header>
 
-	<!-- Menu -->
-
-	<div class="menu menu_mm trans_300">
-		<div class="menu_container menu_mm">
-			<div class="page_menu_content">
-							
-				<div class="page_menu_search menu_mm">
-					<form action="#">
-						<input type="search" required="required" class="page_menu_search_input menu_mm" placeholder="Search for products...">
-					</form>
-				</div>
-				<ul class="page_menu_nav menu_mm">
-					<li class="page_menu_item has-children menu_mm">
-						<a href="index.html">Home<i class="fa fa-angle-down"></i></a>
-						<!-- <ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Categories<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="product.html">Product<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="cart.html">Cart<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="checkout.html">Checkout<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-						</ul> -->
-					</li>
-					<li class="page_menu_item has-children menu_mm">
-						<a href="categories.html">Categories<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-						</ul>
-					</li>
-					<li class="page_menu_item menu_mm"><a href="index.html">Accessories<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="#">Offers<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="menu_close"><i class="fa fa-times" aria-hidden="true"></i></div>
-
-		<div class="menu_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
-	</div>
-	
 	<!-- Home -->
 
 	<div class="home">
 		<div class="wrapper">
 			<div class="search_box">
 				<input type="text" placeholder="Cari nama tempat atau alamat" name="">
-				<a href="map.html"><i class="fa fa-search" aria-hidden="true"></i></a>
+				<a href="map.php"><i class="fa fa-search" aria-hidden="true"></i></a>
 			</div>
 		</div>
 	</div>
@@ -203,7 +157,7 @@
 					<div class="newsletter_content text-center">
 						<div class="newsletter_title">Apakah Anda Pemilik Kos?</div>
 						<div class="newsletter_text"><p>Promosikan Kos Anda di SIKos agar lebih dikenal</p></div>
-						<a href="register2.html"><button class="newsletter_button trans_200"><span>Daftar</span></button></a>
+						<a href="register2.php"><button class="newsletter_button trans_200"><span>Daftar</span></button></a>
 					</div>
 				</div>
 			</div>

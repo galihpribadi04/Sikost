@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Member Register</title>
+	<title>SIKos | Register</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -30,7 +30,7 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form" method=post action="">
+				<form class="login100-form validate-form" method="post" action="">
 					<span class="login100-form-title">
 						Register sebagai Pencari Kos
 					</span>
@@ -59,7 +59,7 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type=submit>
+						<button class="login100-form-btn" type="submit">
 							Register
 						</button>
 					</div>
@@ -68,13 +68,13 @@
 						<span class="txt1">
 							Apakah
 						</span>
-						<a class="txt2" href="register2.html">
+						<a class="txt2" href="register2.php">
 							Anda pemilik kost ?
 						</a>
 					</div>
 
 					<div class="text-center p-t-90">
-						<a class="txt2" href="login.html">
+						<a class="txt2" href="login.php">
 							Sudah punya akun ?
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>

@@ -12,22 +12,22 @@
         header('Location: index.php');
     }
     else if(isset($_POST['submit'])){
-        echo "TEST";
+        
         // checkLogin(['anjay@gmail.com', '202cb962ac59075b964b07152d234b70']);
         // checkLogin([$_POST['email'], $db->query("SELECT MD5('{$_POST['pass']}')")->fetch()[0]], $db);
-        $hasil = $db->query("SELECT p.* FROM pencari p WHERE p.u_email='{$_POST['email']}' AND p.u_password=MD5('{$_POST['pass']}')")->fetch();
+        $hasil = $db->query("SELECT p.* FROM pemilik p WHERE p.p_email='{$_POST['email']}' AND p.p_password=MD5('{$_POST['pass']}')")->fetch();
         header('Location: index.php');
         if(!empty($hasil)){
             $_SESSION['logged-in'] = array();
-            $_SESSION['logged-in']["user"]= $hasil['u_username'];
-            // $_SESSION['logged-in']["mail"]= $hasil['u_email'];
-            $_SESSION['logged-in']["rights"]= $hasil['u_rights'];
+            $_SESSION['logged-in']["user"]= $hasil['p_username'];
+            // $_SESSION['logged-in']["mail"]= $hasil['p_email'];
+            $_SESSION['logged-in']["rights"]= $hasil['p_rights'];
             
-            header('Location: index.php');
+            header('Location: indexP.php');
         }
         else{
             $_SESSION['err'] = 1;
-            header('Location: login.php');    
+            header('Location: login2.php');    
         }
     }
 ?>

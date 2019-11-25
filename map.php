@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Sublime project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" >
 <link rel="stylesheet" type="text/css" href="styles/contact.css">
@@ -23,26 +25,38 @@
 				<div class="row">
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
-							<div class="logo"><a href="index.html">SIKos</a></div>
+							<div class="logo"><a href="index.php">SIKos</a></div>
 							<nav class="main_nav">
+								<?php if(isset($_SESSION['logged-in'])): ?>
 								<ul>
-									<li class="active">
-										<a href="index.html">Home</a>
-									</li>
-									<li><a href="contact.html">Contact</a></li>
-									<li><a href="">About Us</a></li>
+									<!-- <li class="active"> -->
+									<li><a href="index.php">Kamarku</a></li>
+									<!-- </li> -->
+									<li><a href="upload.html">Pembayaran</a></li>
 								</ul>
+								<?php else: ?>
+
+								<?php endif ?>
 							</nav>
 							<nav class="main_nav ml-auto">
 								<ul>
-									<li class="hassubs">
-										<a href="">Login</a>
-										<ul>
-											<li><a href="login.html">Sebagai Pencari</a></li>
-											<li><a href="login.html">Sebagai Pemilik</a></li>
-										</ul>
-									</li>
-									<li><a href="register.html">Register</a></li>
+									<?php if(isset($_SESSION['logged-in'])): ?>
+										<li class="hassubs">
+											Selamat Datang, <?php echo $_SESSION['logged-in']['user']; ?>
+											<ul>
+												<li><a href="index.php?logout=1">Log Out</a></li>
+											</ul>
+										</li>
+									<?php else: ?>
+										<li class="hassubs">
+											<a href="">Login</a>
+											<ul>
+												<li><a href="login.php">Sebagai Pencari</a></li>
+												<li><a href="login2.php">Sebagai Pemilik</a></li>
+											</ul>
+										</li>
+										<li><a href="register1.php">Register</a></li>
+									<?php endif; ?>
 								</ul>
 							</nav>
 						</div>

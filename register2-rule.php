@@ -1,40 +1,24 @@
-<?php
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "myDB";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+<?php 
+    $err='';
 
-$sql = "INSERT INTO pemilik (p_username,p_email,p_password)
-VALUES (".$_POST['uname'].", ".$_POST['email'].", ".md5($_POST['password']).")";
+    if(isset($_SESSION['err'])){
+        $err=$_SESSION['err'];
+        unset($_SESSION['err']);
+    }
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        require 'conn.php';
 
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
+        $result = $db->query("SELECT p.p_email FROM pemilik p WHERE p.p_email='{$_POST['email']}'")->fetch();
 
-/*
-$sql = "INSERT INTO datakos (p_username,p_email,p_password)
-VALUES (".$_POST['uname'].", ".$_POST['email'].", ".md5($_POST['password']).")";
+        if(empty($result)){
+           $db->query("INSERT INTO `pemilik` (`p_username`, `p_namakos`, `p_email`, `p_password`) VALUES ('{$_POST['nama']}','{$_POST['namakos']}', '{$_POST['email']}', MD5('{$_POST['pass']}'))");
+           //$db->query("INSERT INTO `detail_orang` (`mail`, `depan`, `belakang`) VALUES ('{$_POST['mail']}', '{$_POST['front']}', '{$_POST['back']}')");
 
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
---->ini maunya buat nambah data kos harus minta server id pemilik
-*/
+           header("Location: login.php");
+        }
+        else{
+            $_SESSION['err']= 1;
+        }
 
-$conn->close();
-
-header('location:index.html');
-
-
-
+    } 
 ?>

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Halaman Login</title>
+	<title>SIKos | Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -31,11 +31,14 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form" method=post action=login.php>
+				
+				<form class="login100-form validate-form" action="login.php" method="post">
 					<span class="login100-form-title">
 						Member Login
 					</span>
-
+					<?php if(!empty($err)): ?>
+						<span>Invalid Email or Password</span>
+					<?php endif; ?>
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="email" placeholder="Email">
 						<span class="focus-input100"></span>
@@ -53,7 +56,7 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type=submit name="submit">
+						<button class="login100-form-btn" type="submit" name="submit">
 							Login
 						</button>
 					</div>
