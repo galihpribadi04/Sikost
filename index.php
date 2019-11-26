@@ -41,12 +41,21 @@
 							<div class="logo"><a href="index.php">SIKos</a></div>
 							<nav class="main_nav">
 								<?php if(isset($_SESSION['logged-in'])): ?>
-								<ul>
-									<!-- <li class="active"> -->
-									<li><a href="index.php">Kamarku</a></li>
-									<!-- </li> -->
-									<li><a href="upload.html">Pembayaran</a></li>
-								</ul>
+									<?php if($_SESSION['logged-in']['rights']==1): ?>	
+										<ul>
+											<!-- <li class="active"> -->
+											<li><a href="kamarku.php">Kamarku</a></li>
+											<!-- </li> -->
+											<li><a href="upload.html">Pembayaran</a></li>
+										</ul>
+									<?php elseif($_SESSION['logged-in']['rights']==3): ?>
+										<ul>
+											<!-- <li class="active"> -->
+											<li><a href="index.php">Verifikasi</a></li>
+											<!-- </li> -->
+											<li><a href="upload.html">Pembayaran</a></li>
+										</ul>
+									<?php endif ?>
 								<?php else: ?>
 
 								<?php endif ?>

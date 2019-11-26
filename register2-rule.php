@@ -14,7 +14,7 @@
            $db->query("INSERT INTO `pemilik` (`p_username`, `p_namakos`, `p_email`, `p_password`) VALUES ('{$_POST['nama']}','{$_POST['namakos']}', '{$_POST['email']}', MD5('{$_POST['pass']}'))");
            //$db->query("INSERT INTO `detail_orang` (`mail`, `depan`, `belakang`) VALUES ('{$_POST['mail']}', '{$_POST['front']}', '{$_POST['back']}')");
 
-           header("Location: login.php");
+           header("Location: login2.php");
         }
         else{
             $_SESSION['err']= 1;

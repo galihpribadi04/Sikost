@@ -971,6 +971,13 @@ section
 	color: #1b1b1b;
 	margin-top: -9px;
 }
+.details_name2
+{
+	font-size: 18px;
+	font-weight: 500;
+	color: #1b1b1b;
+	margin-top: 9px;
+}
 .details_discount
 {
 	display: inline-block;

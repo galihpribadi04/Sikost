@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Product</title>
+<title>SIKos - Cari Kos Gampang</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Sublime project">
@@ -34,7 +34,7 @@
 									<li class="active">
 										<a href="indexP.php">Home</a>
 									</li>
-									<li><a href="contact.html">Kelola Kamar</a></li>
+									<li><a href="kelolaKamar.php">Kelola Kamar</a></li>
 								</ul>
 								<?php else: ?>
 

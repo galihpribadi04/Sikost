@@ -227,8 +227,8 @@ section
 }
 .button
 {
-	width: 178px;
-	height: 61px;
+	width: 100%;
+	height: 40px;
 	background: none;
 	text-align: center;
 	border: solid 2px #1b1b1b;
@@ -241,7 +241,7 @@ section
 	position: relative;
 	font-size: 16px;
 	font-weight: 600;
-	line-height: 57px;
+	line-height: 35px;
 	color: #1b1b1b;
 	background: none;
 	z-index: 1;
@@ -320,7 +320,7 @@ section
 .header_content
 {
 	width: 100%;
-	height: 130px;
+	height: 80px;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
@@ -806,10 +806,10 @@ section
 .home
 {
 	width: 100%;
-	height: 362px;
+	height: 30px;
 	background: #FFFFFF;
 	z-index: 2;
-	padding-top: 130px;
+	padding-top: 30px;
 	padding-left: 60px;
 	padding-right: 60px;
 }
@@ -921,8 +921,8 @@ section
 }
 .cart_item
 {
-	padding-top: 33px;
-	padding-bottom: 33px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 .cart_item_product
 {
@@ -930,7 +930,7 @@ section
 }
 .cart_item_price
 {
-	width: 10%;
+	width: 30%;
 }
 .cart_item_quantity
 {
@@ -939,13 +939,14 @@ section
 }
 .cart_item_total
 {
-	width: 10%;
+	width: 25%;
 	text-align: right;
 }
 .cart_item_image div
 {
 	width: 183px;
 	height: 163px;
+	overflow: hidden;
 }
 .cart_item_image div img
 {
@@ -994,6 +995,9 @@ section
 	font-size: 14px;
 	font-weight: 400;
 	color: #1b1b1b;
+}
+.nama{
+	font-size: 18px;
 }
 .product_quantity_container
 {
