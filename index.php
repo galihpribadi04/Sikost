@@ -46,14 +46,14 @@
 											<!-- <li class="active"> -->
 											<li><a href="kamarku.php">Kamarku</a></li>
 											<!-- </li> -->
-											<li><a href="upload.html">Pembayaran</a></li>
+											<li><a href="upload.php">Pembayaran</a></li>
 										</ul>
 									<?php elseif($_SESSION['logged-in']['rights']==3): ?>
 										<ul>
-											<!-- <li class="active"> -->
-											<li><a href="index.php">Verifikasi</a></li>
-											<!-- </li> -->
-											<li><a href="upload.html">Pembayaran</a></li>
+											<li class="active">
+												<a href="index.php">Home</a>
+											</li>
+											<li><a href="verifikasi.php">Verifikasi</a></li>
 										</ul>
 									<?php endif ?>
 								<?php else: ?>

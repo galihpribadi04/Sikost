@@ -35,7 +35,7 @@
 											<li class="active">
 												<a href="kamarku.php">Kamarku</a>
 											</li>
-											<li><a href="upload.html">Pembayaran</a></li>
+											<li><a href="upload.php">Pembayaran</a></li>
 										</ul>
 									<?php elseif($_SESSION['logged-in']['rights']==3): ?>
 										<ul>

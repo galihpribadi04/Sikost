@@ -28,9 +28,9 @@
 							<nav class="main_nav">
 								<?php if(isset($_SESSION['logged-in'])): ?>
 								<ul>
-									<li><a href="indexP.php">Home</a></li>
+									<li><a href="index.php">Home</a></li>
 									<li class="active">
-										<a href="kelolaKamar.php">Kelola Kamar</a>
+										<a href="verifikasi.php">Verifikasi</a>
 									</li>
 								</ul>
 								<?php else: ?>
@@ -91,25 +91,20 @@
 					<div class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 						<!-- Name -->
 						<div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
-							<div class="cart_item_image">
-								<div><img src="images/kost.jpeg" alt=""></div>
-							</div>
 							<div class="cart_item_name_container">
-								<div class="cart_item_name"><a href="#">Kamar #1</a></div>
+								<div class="cart_item_name"><a href="#">Kos Ayam Jantan</a></div>
 							</div>
 						</div>
                         <!-- Price -->
                         
-                        <div class="cart_item_price">Disewa Oleh:<p class="nama">-</p></div>
-                        <div class="cart_item_price">Sampai Tanggal:<p class="nama">-</p></div>
+                        <div class="cart_item_price">Nama Pemilik:<p class="nama">Siraj</p></div>
+                        <div class="cart_item_price">No. Telepon:<p class="nama">081217440400</p></div>
                                     
 						<!-- Quantity -->
 						
 						<!-- Total -->
 						<div class="cart_item_total">
-                            <div class="button clear_cart_button"><a href="#">Ubah</a></div>
-                            <div class="button clear_cart_button"><a href="#">Pembayaran</a></div>
-                            <div class="button clear_cart_button"><a href="#">Pendaftar</a></div>
+                            <div class="button clear_cart_button"><a href="#">Verifikasi</a></div>
                         </div>
 					</div>
 
@@ -122,37 +117,7 @@
 					</div>
 				</div>
 			</div>
-            <div class="row cart_items_row">
-				<div class="col">
-
-					<!-- Cart Item -->
-					<div class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
-						<!-- Name -->
-						<div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
-							<div class="cart_item_image">
-								<div><img src="images/kost-1.jpg" alt=""></div>
-							</div>
-							<div class="cart_item_name_container">
-								<div class="cart_item_name"><a href="#">Kamar #2</a></div>
-							</div>
-						</div>
-                        <!-- Price -->
-                        
-                        <div class="cart_item_price">Disewa Oleh:<p class="nama">RM Ivan</p></div>
-                        <div class="cart_item_price">Sampai Tanggal:<p class="nama">20 Juni 2019</p></div>
-                                    
-						<!-- Quantity -->
-						
-						<!-- Total -->
-						<div class="cart_item_total">
-                            <div class="button clear_cart_button"><a href="#">Ubah</a></div>
-                            <div class="button clear_cart_button"><a href="upload.php">Pembayaran</a></div>
-                            <div class="button clear_cart_button"><a href="#">Pendaftar</a></div>
-                        </div>
-					</div>
-
-				</div>
-			</div>
+            
 
 			
 		</div>		

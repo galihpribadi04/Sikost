@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,26 +27,47 @@
 				<div class="row">
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
-							<div class="logo"><a href="index.html">SIKos</a></div>
+							<div class="logo"><a href="index.php">SIKos</a></div>
 							<nav class="main_nav">
-								<ul>
-									<li class="active">
-										<a href="index.html">Home</a>
-									</li>
-									<li><a href="contact.html">Contact</a></li>
-									<li><a href="">About Us</a></li>
-								</ul>
+								<?php if(isset($_SESSION['logged-in'])): ?>
+									<?php if($_SESSION['logged-in']['rights']==1): ?>	
+										<ul>
+											<!-- <li class="active"> -->
+											<li><a href="kamarku.php">Kamarku</a></li>
+											<!-- </li> -->
+											<li><a href="upload.php">Pembayaran</a></li>
+										</ul>
+									<?php elseif($_SESSION['logged-in']['rights']==3): ?>
+										<ul>
+											<!-- <li class="active"> -->
+											<li><a href="index.php">Verifikasi</a></li>
+											<!-- </li> -->
+											<li><a href="upload.php">Pembayaran</a></li>
+										</ul>
+									<?php endif ?>
+								<?php else: ?>
+
+								<?php endif ?>
 							</nav>
 							<nav class="main_nav ml-auto">
 								<ul>
-									<li class="hassubs">
-										<a href="">Login</a>
-										<ul>
-											<li><a href="login.html">Sebagai Pencari</a></li>
-											<li><a href="login.html">Sebagai Pemilik</a></li>
-										</ul>
-									</li>
-									<li><a href="register.html">Register</a></li>
+									<?php if(isset($_SESSION['logged-in'])): ?>
+										<li class="hassubs">
+											Selamat Datang, <?php echo $_SESSION['logged-in']['user']; ?>
+											<ul>
+												<li><a href="index.php?logout=1">Log Out</a></li>
+											</ul>
+										</li>
+									<?php else: ?>
+										<li class="hassubs">
+											<a href="">Login</a>
+											<ul>
+												<li><a href="login.php">Sebagai Pencari</a></li>
+												<li><a href="login2.php">Sebagai Pemilik</a></li>
+											</ul>
+										</li>
+										<li><a href="register1.php">Register</a></li>
+									<?php endif; ?>
 								</ul>
 							</nav>
 						</div>
