@@ -75,13 +75,13 @@
 						<span class="txt1">
 							Apakah
 						</span>
-						<a class="txt2" href="register.html">
+						<a class="txt2" href="register.php">
 							Anda pencari kost ?
 						</a>
 					</div>
 
 					<div class="text-center p-t-60">
-						<a class="txt2" href="login.html">
+						<a class="txt2" href="login2.php">
 							Sudah punya akun ?
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>

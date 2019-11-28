@@ -235,6 +235,9 @@ section
 	overflow: hidden;
 	cursor: pointer;
 }
+
+
+
 .button a
 {
 	display: block;
@@ -886,6 +889,7 @@ section
 	width: 100%;
 	background: #FFFFFF;
 	padding-top: 96px;
+	padding-bottom: 96px;
 	z-index: 2;
 }
 .cart_info_columns

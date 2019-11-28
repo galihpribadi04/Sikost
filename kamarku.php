@@ -96,14 +96,21 @@
 					<!-- Product Content -->
 					<div class="col-lg-6">
 						<div class="details_content">
-							<div class="details_name2">Nama: -</div>
-							<div class="details_name2">Sampai Tanggal: -</div>
-							<div class="details_name2">Nama Kos: -</div>
-							<div class="details_name2">Alamat: -</div>
+							<div class="details_name2">Nama<span style="padding-left:6.2em">
+								: <?php echo $_SESSION['logged-in']["user"] ?></span></div>
+							<div class="details_name2">Sampai Tanggal<span style="padding-left:1em">
+								: </span> -</div>
+							<div class="details_name2">Nama Kos <span style="padding-left:4.1em">
+								: </span>-</div>
+							<div class="details_name2">Alamat<span style="padding-left:5.5em">
+								: </span> -</div>
 						</div>
 					</div>
 				</div>
-			</div>	
+			</div>
+			<div class="text-center">
+				<div class="button cart_button"><a href="">Perpanjang Masa Kos</a></div>	
+			</div>
 		</div>
 	</div>
 

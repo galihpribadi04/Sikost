@@ -153,8 +153,7 @@
 
 				</div>
 			</div>
-
-			
+			<div class="button clear_cart_button"><a href="#">Tambah Kamar</a></div>
 		</div>		
 	</div>
 

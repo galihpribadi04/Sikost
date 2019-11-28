@@ -34,7 +34,7 @@
 				
 				<form class="login100-form validate-form" action="login.php" method="post">
 					<span class="login100-form-title">
-						Member Login
+						Login Pencari Kos
 					</span>
 					<?php if(!empty($err)): ?>
 						<span>Invalid Email or Password</span>
