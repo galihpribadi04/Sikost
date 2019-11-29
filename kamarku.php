@@ -16,6 +16,14 @@
 <link rel="stylesheet" type="text/css" href="styles/product_responsive.css">
 </head>
 <body>
+	<?php require_once 'conn.php'?>
+	<?php
+		$condition = "'{$_SESSION['logged-in']['mail']}'";
+		$query = $db->prepare('SELECT r.*, p.u_username, a.p_namakos FROM ruangan r, pencari p, pemilik a 
+			WHERE r.fk_kos=a.p_id AND r.fk_user=p.u_id AND p.u_email='.$condition);
+		$query->execute();
+		$result = $query->fetchAll(PDO::FETCH_ASSOC);
+	?>
 
 <div class="super_container">
 
@@ -95,16 +103,32 @@
 			
 					<!-- Product Content -->
 					<div class="col-lg-6">
+					<?php foreach ($result as $row): ?>
 						<div class="details_content">
 							<div class="details_name2">Nama<span style="padding-left:6.2em">
-								: <?php echo $_SESSION['logged-in']["user"] ?></span></div>
+								: <?php echo $row['u_username'] ?></span></div>
 							<div class="details_name2">Sampai Tanggal<span style="padding-left:1em">
 								: </span> -</div>
 							<div class="details_name2">Nama Kos <span style="padding-left:4.1em">
-								: </span>-</div>
+								: <?php echo $row['p_namakos'] ?></span></div>
+							<div class="details_name2">Alamat<span style="padding-left:5.5em">
+								: </span> -</div>
+							<div class="details_name2">Kamar <span style="padding-left:5.8em">
+								: <?php echo $row['r_namaruang'] ?></span></div>
+						</div>
+					<?php endforeach; ?>
+					<?php if(empty($result)): ?>
+						<div class="details_content">
+							<div class="details_name2">Nama<span style="padding-left:6.2em">
+								: <?php echo $_SESSION['logged-in']['user'] ?></span></div>
+							<div class="details_name2">Sampai Tanggal<span style="padding-left:1em">
+								: </span> -</div>
+							<div class="details_name2">Nama Kos <span style="padding-left:4.1em">
+								: </span> -</div>
 							<div class="details_name2">Alamat<span style="padding-left:5.5em">
 								: </span> -</div>
 						</div>
+					<?php endif; ?>
 					</div>
 				</div>
 			</div>

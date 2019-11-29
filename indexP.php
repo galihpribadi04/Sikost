@@ -159,12 +159,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
-					<div class="products_title">Detail Kamar</div>
+					<div class="products_title">Detail Kos</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col">
-					<div class="col-lg-6">
+					<div class="col">
 						<div class="details_content">
 							<div class="details_name"><?php echo $_SESSION['logged-in']['kos']; ?></div>
 							<div class="details_price">Rp. 670.000</div>

@@ -20,7 +20,7 @@
         if(!empty($hasil)){
             $_SESSION['logged-in'] = array();
             $_SESSION['logged-in']["user"]= $hasil['u_username'];
-            // $_SESSION['logged-in']["mail"]= $hasil['u_email'];
+            $_SESSION['logged-in']["mail"]= $hasil['u_email'];
             $_SESSION['logged-in']["rights"]= $hasil['u_rights'];
             
             header('Location: index.php');

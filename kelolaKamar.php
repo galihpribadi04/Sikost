@@ -13,6 +13,13 @@
 <link rel="stylesheet" type="text/css" href="styles/cart_responsive.css">
 </head>
 <body>
+	<?php require_once 'conn.php'?>
+	<?php
+		$query = $db->prepare('SELECT r.*, p.u_username, a.p_username FROM ruangan r, pencari p, pemilik a 
+			WHERE r.fk_kos=a.p_id AND r.fk_user=p.u_id');
+		$query->execute();
+		$result = $query->fetchAll(PDO::FETCH_ASSOC);
+	?>
 
 <div class="super_container">
 
@@ -77,6 +84,7 @@
 
 	<div class="cart_info">
 		<div class="container">
+		<?php foreach($result as $row): ?>
 			<div class="row">
 				<div class="col">
 					<!-- Column Titles -->
@@ -85,8 +93,9 @@
 				</div>
 			</div>
 			<div class="row cart_items_row">
+			
 				<div class="col">
-
+					
 					<!-- Cart Item -->
 					<div class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 						<!-- Name -->
@@ -95,12 +104,13 @@
 								<div><img src="images/kost.jpeg" alt=""></div>
 							</div>
 							<div class="cart_item_name_container">
-								<div class="cart_item_name"><a href="#">Kamar #1</a></div>
+								<div class="cart_item_name"><a href="#">Kamar <?php echo $row['r_namaruang']; ?></a></div>
 							</div>
 						</div>
                         <!-- Price -->
                         
-                        <div class="cart_item_price">Disewa Oleh:<p class="nama">-</p></div>
+						<div class="cart_item_price">Disewa Oleh:<p class="nama"><?php if(empty($row['fk_user'])) echo "-";
+							else echo $row['u_username']?></p></div>
                         <div class="cart_item_price">Sampai Tanggal:<p class="nama">-</p></div>
                                     
 						<!-- Quantity -->
@@ -112,47 +122,12 @@
                             <div class="button clear_cart_button"><a href="#">Pendaftar</a></div>
                         </div>
 					</div>
-
+					
 				</div>
+			
 			</div>
-            <div class="row">
-				<div class="col">
-					<!-- Column Titles -->
-					<div class="cart_info_columns clearfix">
-					</div>
-				</div>
-			</div>
-            <div class="row cart_items_row">
-				<div class="col">
-
-					<!-- Cart Item -->
-					<div class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
-						<!-- Name -->
-						<div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
-							<div class="cart_item_image">
-								<div><img src="images/kost-1.jpg" alt=""></div>
-							</div>
-							<div class="cart_item_name_container">
-								<div class="cart_item_name"><a href="#">Kamar #2</a></div>
-							</div>
-						</div>
-                        <!-- Price -->
-                        
-                        <div class="cart_item_price">Disewa Oleh:<p class="nama">RM Ivan</p></div>
-                        <div class="cart_item_price">Sampai Tanggal:<p class="nama">20 Juni 2019</p></div>
-                                    
-						<!-- Quantity -->
-						
-						<!-- Total -->
-						<div class="cart_item_total">
-                            <div class="button clear_cart_button"><a href="#">Ubah</a></div>
-                            <div class="button clear_cart_button"><a href="upload.php">Pembayaran</a></div>
-                            <div class="button clear_cart_button"><a href="#">Pendaftar</a></div>
-                        </div>
-					</div>
-
-				</div>
-			</div>
+			<?php endforeach; ?>
+			
 			<div class="button clear_cart_button"><a href="#">Tambah Kamar</a></div>
 		</div>		
 	</div>

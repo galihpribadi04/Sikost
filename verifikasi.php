@@ -14,6 +14,14 @@
 </head>
 <body>
 
+<?php require_once 'conn.php';?>
+<?php
+		$query = $db->prepare('SELECT * FROM pemilik 
+			WHERE p_verif=0');
+		$query->execute();
+		$result = $query->fetchAll(PDO::FETCH_ASSOC);
+	?>
+
 <div class="super_container">
 
 	<!-- Header -->
@@ -77,6 +85,7 @@
 
 	<div class="cart_info">
 		<div class="container">
+		<?php foreach($result as $row): ?>
 			<div class="row">
 				<div class="col">
 					<!-- Column Titles -->
@@ -85,30 +94,32 @@
 				</div>
 			</div>
 			<div class="row cart_items_row">
+			
 				<div class="col">
-
+				
 					<!-- Cart Item -->
 					<div class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 						<!-- Name -->
 						<div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
 							<div class="cart_item_name_container">
-								<div class="cart_item_name"><a href="#">Kos Ayam Jantan</a></div>
+								<div class="cart_item_name"><a href="#"><?php echo $row['p_namakos']?></a></div>
 							</div>
 						</div>
                         <!-- Price -->
                         
-                        <div class="cart_item_price">Nama Pemilik:<p class="nama">Siraj</p></div>
+                        <div class="cart_item_price">Nama Pemilik:<p class="nama"><?php echo $row['p_username']?></p></div>
                         <div class="cart_item_price">No. Telepon:<p class="nama">081217440400</p></div>
                                     
 						<!-- Quantity -->
 						
 						<!-- Total -->
 						<div class="cart_item_total">
-                            <div class="button clear_cart_button"><a href="#">Verifikasi</a></div>
+                            <div class="button clear_cart_button" name="verif"><a href="#">Verifikasi</a></div>
                         </div>
 					</div>
-
+				
 				</div>
+			
 			</div>
             <div class="row">
 				<div class="col">
@@ -117,9 +128,8 @@
 					</div>
 				</div>
 			</div>
-            
-
-			
+        
+		<?php endforeach;?>	
 		</div>		
 	</div>
 
