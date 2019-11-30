@@ -878,6 +878,10 @@ section
 {
 	margin-top: 95px;
 }
+.details_row2{
+	margin-top: 20px;
+	height: 500px;
+}
 .details_image
 {
 	
@@ -932,6 +936,9 @@ section
 .details_content{
 	margin-top: 10px;
 }
+.details_content2{
+	margin-top: 50px;
+}
 .product_name
 {
 	font-size: 30px;
@@ -970,7 +977,7 @@ section
 	font-size: 24px;
 	font-weight: 500;
 	color: #1b1b1b;
-	margin-top: -9px;
+	margin-top: -7px;
 }
 .details_name2
 {

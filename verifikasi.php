@@ -32,7 +32,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
-							<div class="logo"><a href="indexP.php">SIKos</a></div>
+							<div class="logo"><a href="index.php">SIKos</a></div>
 							<nav class="main_nav">
 								<?php if(isset($_SESSION['logged-in'])): ?>
 								<ul>
@@ -108,7 +108,7 @@
                         <!-- Price -->
                         
                         <div class="cart_item_price">Nama Pemilik:<p class="nama"><?php echo $row['p_username']?></p></div>
-                        <div class="cart_item_price">No. Telepon:<p class="nama">081217440400</p></div>
+                        <div class="cart_item_price">Email:<p class="nama"><?php echo $row['p_email']?></p></div>
                                     
 						<!-- Quantity -->
 						

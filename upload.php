@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Upload Bukti Transfer</title>
+<title>SIKos | Pembayaran</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Sublime project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css">
+<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
@@ -16,6 +16,14 @@
 <link rel="stylesheet" type="text/css" href="styles/product_responsive.css">
 </head>
 <body>
+	<?php require_once 'conn.php'?>
+	<?php
+		$condition = "'{$_SESSION['logged-in']['mail']}'";
+		$query = $db->prepare('SELECT r.*, p.u_username, a.p_namakos FROM ruangan r, pencari p, pemilik a 
+			WHERE r.fk_kos=a.p_id AND r.fk_user=p.u_id AND p.u_email='.$condition);
+		$query->execute();
+		$result = $query->fetchAll(PDO::FETCH_ASSOC);
+	?>
 
 <div class="super_container">
 
@@ -32,17 +40,17 @@
 								<?php if(isset($_SESSION['logged-in'])): ?>
 									<?php if($_SESSION['logged-in']['rights']==1): ?>	
 										<ul>
-											<!-- <li class="active"> -->
 											<li><a href="kamarku.php">Kamarku</a></li>
-											<!-- </li> -->
-											<li><a href="upload.html">Pembayaran</a></li>
+                                            <li class="active">
+                                                <a href="upload.php">Pembayaran</a>
+                                            </li>
 										</ul>
 									<?php elseif($_SESSION['logged-in']['rights']==3): ?>
 										<ul>
 											<!-- <li class="active"> -->
 											<li><a href="index.php">Verifikasi</a></li>
 											<!-- </li> -->
-											<li><a href="upload.php">Pembayaran</a></li>
+											<li><a href="upload.html">Pembayaran</a></li>
 										</ul>
 									<?php endif ?>
 								<?php else: ?>
@@ -70,145 +78,70 @@
 									<?php endif; ?>
 								</ul>
 							</nav>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<!-- Social -->
-		<div class="header_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
+		
 	</header>
 
-	<!-- Menu -->
 
-	<div class="menu menu_mm trans_300">
-		<div class="menu_container menu_mm">
-			<div class="page_menu_content">
-							
-				<div class="page_menu_search menu_mm">
-					<form action="#">
-						<input type="search" required="required" class="page_menu_search_input menu_mm" placeholder="Search for products...">
-					</form>
-				</div>
-				<ul class="page_menu_nav menu_mm">
-					<li class="page_menu_item has-children menu_mm">
-						<a href="index.html">Home<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Categories<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="product.html">Product<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="cart.html">Cart<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="checkout.html">Checkout<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-						</ul>
-					</li>
-					<li class="page_menu_item has-children menu_mm">
-						<a href="categories.html">Categories<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-						</ul>
-					</li>
-					<li class="page_menu_item menu_mm"><a href="index.html">Accessories<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="#">Offers<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="menu_close"><i class="fa fa-times" aria-hidden="true"></i></div>
-
-		<div class="menu_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
-	</div>
-
-	<!-- Products -->
-
+	<!-- Cart Info -->
+	
 	<div class="products">
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
-					<div class="products_title">Upload Bukti Transfer</div>
+					<div class="products_title">Upload Bukti Pembayaran</div>
 				</div>
 			</div>
-			<div class="content" style="height: 750px; width: 100%">
-				<div style="height: 400px; width: 50%;border: 1px solid #000">
-					<form action="#" method="POST" enctype="multipart/form-data" style="padding: 150px">
-						<table>
-							<h6>Upload bukti transfer anda kesini</h6>
-							<tr><td><td/><td><input type="file" value="upload gambar"/></td></tr>
-						</table>
-					</form>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col text" style="padding: 20px; position: relative;">
-					<input type="submit" value="Verifikasi"/>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					
-					
-						<!-- Product -->
-						<!-- <div class="product">
-							<div class="product_image"><img src="images/kost.jpeg" alt=""></div>
-							<div class="product_extra product_putri"><a href="categories.html">Putri</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="detailKos.html">Kos Maju Mundur</a></div>
-								<div class="product_price">Harga Mulai Rp 670.000</div>
-								<div class="product_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</div>
-							</div>
-						</div> -->
+			
+			<div class="product_details">
+				<div class="container">
+                    <div class="row details_row2">
 
-						<!-- Product -->
-						<!-- <div class="product">
-							<div class="product_image"><img src="images/kost-1.jpg" alt=""></div>
-							<div class="product_extra product_putra"><a href="categories.html">Putra</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="detailKos.html">Kos Maju Terus</a></div>
-								<div class="product_price">Harga Mulai Rp 520.000</div>
-								<div class="product_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</div>
-							</div>
-						</div> -->
-
-						<!-- Product -->
-						<!-- <div class="product">
-							<div class="product_image"><img src="images/kost-2.jpg" alt=""></div>
-							<div class="product_extra product_mix"><a href="categories.html">Campur</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="detailKos.html">Kos Pantang Mundur</a></div>
-								<div class="product_price">Harga Mulai Rp 710.000</div>
-								<div class="product_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</div>
-							</div>
-						</div> -->
-
-						<!-- Product -->
-						<!-- <div class="product">
-							<div class="product_image"><img src="images/kost-3.jpg" alt=""></div>
-							<div class="product_extra product_putra"><a href="categories.html">Putra</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="detailKos.html">Kos J-One</a></div>
-								<div class="product_price">Harga Mulai Rp 330.000</div>
-								<div class="product_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</div>
-							</div>
-						</div> -->
-					</div>
+                        <!-- Product Image -->
+                        <div class="col-lg-6">
+                            <div style="height: 400px; width: 100%;border: 1px solid #000; margin-top: 30px;">
+                                <form action="#" method="POST" enctype="multipart/form-data" style="padding: 150px">
+                                    <table>
+                                        <h5>Upload bukti pembayaran anda kesini</h5>
+                                        <tr><td><td><td><input type="file" value="upload"/></td></tr>
+                                    </table>
+                                </form>
+				            </div>
+                        </div>             
+                        <!-- Product Content -->
+                        <div class="col-lg-6">
+                        <?php foreach ($result as $row): ?>
+                            <div class="details_content2">
+                                <div class="details_name2">Nama:</div>
+                                <div class="details_name"><span style="padding-left:5em"><?php echo $row['u_username'] ?></span></div>
+                                <div class="details_name2">Tanggal Jatuh Tempo:</div>
+                                <div class="details_name"><span style="padding-left:5em"><?php echo $row['u_username'] ?></span></div>
+                                <div class="details_name2">Kewajiban Bayar:</div>
+                                <div class="details_name"><span style="padding-left:5em"><?php echo $row['u_username'] ?></span></div>
+                            </div>
+                            <div class="text-center">
+                                <div class="button cart_button"><a href="#">Kirim Bukti Pembayaran</a></div>
+                            </div>
+                        <?php endforeach; ?>
+                        <?php if(empty($result)): ?>
+                            <div class="details_content">
+                                <div class="details_name2">Nama<span style="padding-left:6.2em">
+                                    : <?php echo $_SESSION['logged-in']['user'] ?></span></div>
+                                <div class="details_name2">Sampai Tanggal<span style="padding-left:1em">
+                                    : </span> -</div>
+                                <div class="details_name2">Nama Kos <span style="padding-left:4.1em">
+                                    : </span> -</div>
+                                <div class="details_name2">Alamat<span style="padding-left:5.5em">
+                                    : </span> -</div>
+                            </div>
+                        <?php endif; ?>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -250,10 +183,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
 <script src="plugins/greensock/animation.gsap.min.js"></script>
 <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
 <script src="plugins/easing/easing.js"></script>
 <script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="js/product.js"></script>
+<script src="js/cart.js"></script>
 </body>
 </html>
