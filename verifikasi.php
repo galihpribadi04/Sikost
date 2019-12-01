@@ -1,3 +1,28 @@
+<?php
+// include database connection file
+require_once'conn.php';
+
+// Code for record deletion
+if(isset($_REQUEST['verif'])){
+	//Get row id
+	$uid=intval($_GET['verif']);
+	//Qyery for deletion
+	$sql = "UPDATE pemilik SET p_verif=1 WHERE  p_id=:id";
+	// Prepare query for execution
+	$query = $db->prepare($sql);
+	// bind the parameters
+	$query-> bindParam(':id',$uid, PDO::PARAM_STR);
+	// Query Execution
+	$query -> execute();
+	// Mesage after updation
+	echo "<script>alert('Akun Pemilik Berhasil diVerifikasi');</script>";
+	// Code for redirection
+	echo "<script>window.location.href='verifikasi.php'</script>"; 
+}
+
+
+?>
+
 <?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +139,7 @@
 						
 						<!-- Total -->
 						<div class="cart_item_total">
-                            <div class="button clear_cart_button" name="verif"><a href="#">Verifikasi</a></div>
+                            <div class="button clear_cart_button" name="verif"><a href="verifikasi.php?verif=<?php echo $row['p_id']?>">Verifikasi</a></div>
                         </div>
 					</div>
 				

@@ -147,101 +147,62 @@
 			<div class="row details_row">
 
 				<!-- Product Image -->
-				<div class="col-lg-6">
-					<div class="details_image">
+				<div class="col-lg-12">
+					<div class="details_image text-center">
 						<div class="details_image_large"><img src="images/kost.jpeg" alt=""></div>
 					</div>
 				</div>
 
-				<!-- Product Content -->
-				<div class="col-lg-6">
-					<div class="details_content">
-						<div class="details_name">Kamar #1</div>
-						<div class="details_price">Rp. 670.000</div>
-
-						<!-- In Stock -->
-						<div class="in_stock_container">
-							<div class="availability">Availability:</div>
-							<span>Masih Ada</span><br><br>
-							
-							<?php if(isset($_SESSION['logged-in'])): ?>
-								<div class="button"><a href="upload.php">Book Now</a></div>
-							<?php else: ?>
-								<div class="button"><a href="#">Book Now</a></div>
-							<?php endif ?>
-						</div>
-						
-
-						<!-- Product Quantity -->
-						<!-- <div class="product_quantity_container">
-							<div class="product_quantity clearfix">
-								<span>Qty</span>
-								<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-								<div class="quantity_buttons">
-									<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
-									<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-								</div>
-							</div>
-							<div class="button cart_button"><a href="#">Add to cart</a></div>
-						</div>
- -->
-						<!-- Share -->
-						
-					</div>
-				</div>
+				
 			</div>
-			
 		</div>
 		</div>
 		<div class="product_details">
-		<div class="container">
-			<div class="row details_row">
+			<div class="container">
+				<div class="row details_row">
+					<!-- Product Content -->
+					<div class="col">
+						<div class="details_content">
+							<div class="details_name">Kamar #1</div>
+							<div class="details_price">Rp. 670.000</div>
 
-				<!-- Product Content -->
-				<div class="col-lg-6">
-					<div class="details_content">
-						<div class="details_name">Fasilitas</div>
-						<ul>
-							<li><div class="details_price">Kamar Mandi Dalam</div></li>
-							<li><div class="details_price">AC</div></li>
-							<li><div class="details_price">TV</div></li>
-						</ul>
-						
-						<div class="details_text">
-							<div class="description_text">
-								<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
+							<!-- In Stock -->
+							<div class="in_stock_container">
+								<div class="availability">Availability:</div>
+								<span>Masih Ada</span><br><br>
+								
+								
 							</div>
 						</div>
-
-						<!-- Product Quantity -->
-						<!-- <div class="product_quantity_container">
-							<div class="product_quantity clearfix">
-								<span>Qty</span>
-								<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-								<div class="quantity_buttons">
-									<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
-									<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-								</div>
-							</div>
-							<div class="button cart_button"><a href="#">Add to cart</a></div>
-						</div>
- -->
-						<!-- Share -->
-						
 					</div>
-				</div>
+					<!-- Product Content -->
+					<div class="col-lg-6">
+						<div class="details_content">
+							<div class="details_name">Fasilitas</div>
+							<ul>
+								<li><div class="details_price">Kamar Mandi Dalam</div></li>
+								<li><div class="details_price">AC</div></li>
+								<li><div class="details_price">TV</div></li>
+							</ul>
+
+							<div class="details_name">Luas Kamar</div>
+							<ul>
+								<li><div class="details_price">Kamar Mandi Dalam</div></li>
+							</ul>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="text-center">
+			<?php if(isset($_SESSION['logged-in'])): ?>
+				<div class="button"><a href="upload.php">Book Now</a></div>
+			<?php else: ?>
+				<div class="button"><a href="#">Book Now</a></div>
+			<?php endif ?>
 			</div>
 			
 		</div>
-		</div>
 	</div>
-
-	
-	<!-- Products -->
-
-	
-		
-	
 
 	<!-- Newsletter -->
 

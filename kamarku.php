@@ -108,7 +108,7 @@
 							<div class="details_name2">Nama<span style="padding-left:6.2em">
 								: <?php echo $row['u_username'] ?></span></div>
 							<div class="details_name2">Sampai Tanggal<span style="padding-left:1em">
-								: </span> -</div>
+								: <?php echo $row['r_masa'] ?></span></div>
 							<div class="details_name2">Nama Kos <span style="padding-left:4.1em">
 								: <?php echo $row['p_namakos'] ?></span></div>
 							<div class="details_name2">Alamat<span style="padding-left:5.5em">
@@ -133,7 +133,11 @@
 				</div>
 			</div>
 			<div class="text-center">
-				<div class="button cart_button"><a href="">Perpanjang Masa Kos</a></div>	
+			<?php if(empty($result)):?>
+					
+			<?php else: ?>
+				<div class="button cart_button"><a href="">Perpanjang Masa Kos</a></div>
+			<?php endif;?>
 			</div>
 		</div>
 	</div>

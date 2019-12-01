@@ -15,8 +15,8 @@
         
         // checkLogin(['anjay@gmail.com', '202cb962ac59075b964b07152d234b70']);
         // checkLogin([$_POST['email'], $db->query("SELECT MD5('{$_POST['pass']}')")->fetch()[0]], $db);
-        $hasil = $db->query("SELECT p.*, r.* FROM pemilik p, ruangan r 
-            WHERE p.p_email='{$_POST['email']}' AND p.p_password=MD5('{$_POST['pass']}') AND r.fk_kos=p.p_id AND p.p_verif=1")->fetch();
+        $hasil = $db->query("SELECT p.* FROM pemilik p 
+            WHERE p.p_email='{$_POST['email']}' AND p.p_password=MD5('{$_POST['pass']}') AND p.p_verif!=0")->fetch();
         header('Location: index.php');
         if(!empty($hasil)){
             

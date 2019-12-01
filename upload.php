@@ -120,24 +120,22 @@
                                 <div class="details_name2">Nama:</div>
                                 <div class="details_name"><span style="padding-left:5em"><?php echo $row['u_username'] ?></span></div>
                                 <div class="details_name2">Tanggal Jatuh Tempo:</div>
-                                <div class="details_name"><span style="padding-left:5em"><?php echo $row['u_username'] ?></span></div>
+                                <div class="details_name"><span style="padding-left:5em"><?php echo $row['r_masa'] ?></span></div>
                                 <div class="details_name2">Kewajiban Bayar:</div>
-                                <div class="details_name"><span style="padding-left:5em"><?php echo $row['u_username'] ?></span></div>
+                                <div class="details_name"><span style="padding-left:5em">Rp <?php echo number_format($row['r_harga_kmr'],2,",",".") ?></span></div>
                             </div>
                             <div class="text-center">
                                 <div class="button cart_button"><a href="#">Kirim Bukti Pembayaran</a></div>
                             </div>
                         <?php endforeach; ?>
                         <?php if(empty($result)): ?>
-                            <div class="details_content">
-                                <div class="details_name2">Nama<span style="padding-left:6.2em">
-                                    : <?php echo $_SESSION['logged-in']['user'] ?></span></div>
-                                <div class="details_name2">Sampai Tanggal<span style="padding-left:1em">
-                                    : </span> -</div>
-                                <div class="details_name2">Nama Kos <span style="padding-left:4.1em">
-                                    : </span> -</div>
-                                <div class="details_name2">Alamat<span style="padding-left:5.5em">
-                                    : </span> -</div>
+                            <div class="details_content2">
+								<div class="details_name2">Nama:</div>
+								<div class="details_name"><span style="padding-left:5em"><?php echo $_SESSION['logged-in']['user'] ?></span></div>
+                                <div class="details_name2">Tanggal Jatuh Tempo:</div>
+								<div class="details_name"><span style="padding-left:5em">-</span></div>
+								<div class="details_name2">Kewajiban Bayar:</div>
+								<div class="details_name"><span style="padding-left:5em">-</span></div>
                             </div>
                         <?php endif; ?>
                         </div>

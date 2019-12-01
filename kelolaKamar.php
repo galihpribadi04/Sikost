@@ -1,3 +1,29 @@
+<?php
+// include database connection file
+require_once'conn.php';
+
+// Code for record deletion
+if(isset($_REQUEST['del'])){
+	//Get row id
+	$uid=intval($_GET['del']);
+	//Qyery for deletion
+	$sql = "DELETE FROM ruangan WHERE  id_ruangan=:id";
+	// Prepare query for execution
+	$query = $db->prepare($sql);
+	// bind the parameters
+	$query-> bindParam(':id',$uid, PDO::PARAM_STR);
+	// Query Execution
+	$query -> execute();
+	// Mesage after updation
+	echo "<script>alert('Kamar Sukses Dihapus');</script>";
+	// Code for redirection
+	echo "<script>window.location.href='kelolaKamar.php'</script>"; 
+}
+
+
+?>
+
+
 <?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,12 +37,13 @@
 <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="styles/cart.css">
 <link rel="stylesheet" type="text/css" href="styles/cart_responsive.css">
+
 </head>
 <body>
 	<?php require_once 'conn.php'?>
 	<?php
 		$query = $db->prepare('SELECT r.*, p.u_username, a.p_username FROM ruangan r, pencari p, pemilik a 
-			WHERE r.fk_kos=a.p_id AND r.fk_user=p.u_id');
+			WHERE r.fk_kos=a.p_id AND r.fk_user=p.u_id AND a.p_id='.$_SESSION['logged-in']['idkos']);
 		$query->execute();
 		$result = $query->fetchAll(PDO::FETCH_ASSOC);
 	?>
@@ -109,17 +136,36 @@
 						</div>
                         <!-- Price -->
                         
-						<div class="cart_item_price">Disewa Oleh:<p class="nama"><?php if(empty($row['fk_user'])) echo "-";
-							else echo $row['u_username']?></p></div>
-                        <div class="cart_item_price">Sampai Tanggal:<p class="nama">-</p></div>
+						<div class="cart_item_price">Disewa Oleh:<p class="nama"><?php echo $row['u_username']?></p></div>
+						<div class="cart_item_price">Sampai Tanggal:<p class="nama"><?php if(empty($row['r_masa'])) echo "-";
+							else echo $row['r_masa']?></p></div>
                                     
 						<!-- Quantity -->
 						
 						<!-- Total -->
 						<div class="cart_item_total">
-                            <div class="button clear_cart_button"><a href="#">Ubah</a></div>
-                            <div class="button clear_cart_button"><a href="#">Pembayaran</a></div>
-                            <div class="button clear_cart_button"><a href="#">Pendaftar</a></div>
+                            <div class="button clear_cart_button"><a href="detailKamar.php">Ubah</a></div>
+							<?php if(!empty($row['fk_user'])): ?>
+                            	<div class="button clear_cart_button"><a href="upload.php">Pembayaran</a></div>
+							<?php else: ?>
+                            	<div class="button clear_cart_button" onclick="openForm()"><a href="#" >Pendaftar</a></div>
+								<div class="form-popup" id="myForm">
+									<form action="/action_page.php" class="form-container">
+									<div class="cart-item-name">Login</div>
+
+										<label for="email"><b>Email</b></label>
+										<input type="text" placeholder="Enter Email" name="email" required>
+
+										<label for="psw"><b>Password</b></label>
+										<input type="password" placeholder="Enter Password" name="psw" required>
+
+										<button type="submit" class="btn">Terima</button>
+										<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+									</form>
+								</div>
+							
+							<div class="button clear_cart_button"><a href="kelolaKamar.php?del=<?php echo $row['id_ruangan']?>" onClick="return confirm('Apakah Anda Yakin?')">Hapus</a></div>
+							<?php endif; ?>
                         </div>
 					</div>
 					
@@ -159,7 +205,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</footer>
 </div>
+<script>
+	function openForm() {
+	document.getElementById("myForm").style.display = "block";
+	}
 
+	function closeForm() {
+	document.getElementById("myForm").style.display = "none";
+	}
+</script>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="styles/bootstrap4/popper.js"></script>
 <script src="styles/bootstrap4/bootstrap.min.js"></script>
