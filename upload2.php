@@ -1,43 +1,59 @@
 <?php session_start(); ?>
 <?php
 	// include database connection file
-	require_once 'conn.php';
-	if(isset($_REQUEST['cari'])){
+	require_once'conn.php';
+	if(isset($_POST['upload'])){
 
 		// Posted Values  
-		$cari=strval($_GET['search']);
+		$folder="images/";
 
 		$kos=$_SESSION['logged-in']['idkos'];
 		$nama=$_POST['nama'];
 		$harga=$_POST['harga'];
 		$luas=$_POST['luas'];
 		$fasil=$_POST['fasil'];
+		$dir=$folder.basename($_FILES["gambar"]["name"]);
+		move_uploaded_file($_FILES["gambar"]["tmp_name"], $dir);
+		
 
 		// Query for Insertion
-		$sql="SELECT d.*, p.p_id, p.p_namakos FROM pemilik p, datakos d WHERE d.fk_pemilik=p.p_id AND d.dk_alamat LIKE '%keputih%'";
+		$sql="INSERT INTO ruangan(fk_kos,r_namaruang,r_ukuran_kmr,r_harga_kmr,r_fasil,r_gambar) VALUES(:ko,:fn,:eml,:ln,:cno,:gam)";
 		//Prepare Query for Execution
 		$query = $db->prepare($sql);
 		// Bind the parameters
-		
-		$query->bindParam(':car',$cari,PDO::PARAM_STR);
+		$query->bindParam(':ko',$kos,PDO::PARAM_STR);
+		$query->bindParam(':fn',$nama,PDO::PARAM_STR);
+		$query->bindParam(':ln',$harga,PDO::PARAM_STR);
+		$query->bindParam(':eml',$luas,PDO::PARAM_STR);
+		$query->bindParam(':cno',$fasil,PDO::PARAM_STR);
+		$query->bindParam(':gam',$dir,PDO::PARAM_STR);
 		
 		// Query Execution
-		// $query->execute();
-		// $result = $query->fetchAll(PDO::FETCH_ASSOC);
-		
+		$query->execute();
+		// Check that the insertion really worked. If the last inserted id is greater than zero, the insertion worked.
+		$lastInsertId = $db->lastInsertId();
+		if($lastInsertId){
+			// Message for successfull insertion
+			echo "<script>alert('Kamar Sukses Ditambahkan');</script>";
+			echo "<script>window.location.href='kelolaKamar.php'</script>"; 
+		}
+		else {
+			// Message for unsuccessfull insertion
+			echo "<script>alert('Something went wrong. Please try again');</script>";
+			echo "<script>window.location.href='tambah_kamar.php'</script>"; 
+		}
 	}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Product</title>
+<title>SIKos | Pembayaran</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Sublime project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css">
+<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
@@ -45,14 +61,23 @@
 <link rel="stylesheet" type="text/css" href="styles/product_responsive.css">
 </head>
 <body>
-<?php 
+<?php
 	require_once 'conn.php';
+	$userid=intval($_GET['id']);
 
-	$query = $db->prepare('SELECT d.*, p.p_id, p.p_namakos FROM pemilik p, datakos d
-		WHERE d.fk_pemilik=p.p_id');
+	$sql = "SELECT * FROM ruangan
+		WHERE id_ruangan=:id";
+    //Prepare the query:
+	$query = $db->prepare($sql);
+    //Bind the parameters
+	$query->bindParam(':id',$userid,PDO::PARAM_STR);
+    //Execute the query:
 	$query->execute();
-	$result = $query->fetchAll(PDO::FETCH_ASSOC);
+    //Assign the data which you pulled from the database (in the preceding step) to a variable.
+	$result=$query->fetchAll(PDO::FETCH_ASSOC); 
+	
 ?>
+
 <div class="super_container">
 
 	<!-- Header -->
@@ -68,17 +93,17 @@
 								<?php if(isset($_SESSION['logged-in'])): ?>
 									<?php if($_SESSION['logged-in']['rights']==1): ?>	
 										<ul>
-											<!-- <li class="active"> -->
 											<li><a href="kamarku.php">Kamarku</a></li>
-											<!-- </li> -->
-											<li><a href="upload.php">Pembayaran</a></li>
+                                            <li class="active">
+                                                <a href="upload.php">Pembayaran</a>
+                                            </li>
 										</ul>
 									<?php elseif($_SESSION['logged-in']['rights']==3): ?>
 										<ul>
 											<!-- <li class="active"> -->
 											<li><a href="index.php">Verifikasi</a></li>
 											<!-- </li> -->
-											<li><a href="upload.php">Pembayaran</a></li>
+											<li><a href="upload.html">Pembayaran</a></li>
 										</ul>
 									<?php endif ?>
 								<?php else: ?>
@@ -106,51 +131,64 @@
 									<?php endif; ?>
 								</ul>
 							</nav>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<!-- Social -->
 		
 	</header>
 
-	<!-- Menu -->
 
-	<!-- Products -->
-
+	<!-- Cart Info -->
+	
 	<div class="products">
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
-					<div class="products_title">List Tempat Kos</div>
+					<div class="products_title">Upload Bukti Pembayaran</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col">
-					
-					<div class="product_grid">
-					<?php foreach($result as $row): ?>
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/kost.jpeg" alt=""></div>
-							<?php if($row['dk_jenis']=="Putra"):?>
-							<div class="product_extra product_putra"><a href="#">Putra</a></div>
-							<?php elseif($row['dk_jenis']=="Putri"):?>
-								<div class="product_extra product_putri"><a href="#">Putri</a></div>
-							<?php else:?>
-								<div class="product_extra product_campur"><a href="#">Campur</a></div>
-							<?php endif; ?>
-							<div class="product_content">
-								<div class="product_title"><a href="detailKos.php?id=<?php echo $row['p_id'] ?>"><?php echo $row['p_namakos']?></a></div>
-								<div class="product_price">Harga Mulai Rp 670.000</div>
-								<div class="product_description">Alamat: <?php echo $row['dk_alamat']?></div>
-							</div>
-						</div>
+			
+			<div class="product_details">
+				<div class="container">
+                    <div class="row details_row2">
 
-					<?php endforeach; ?>	
-					</div>
+                        <!-- Product Image -->
+                        <div class="col-lg-6">
+                            <div style="height: 400px; width: 100%;border: 1px solid #000; margin-top: 30px;">
+                                <form action="#" method="POST" enctype="multipart/form-data" style="padding: 150px">
+                                    <table>
+                                        <h5>Upload bukti pembayaran anda kesini</h5>
+                                        <tr><td><td><td><input type="file" name="gambar" value="upload"/></td></tr>
+                                    </table>
+                                </form>
+				            </div>
+                        </div>             
+                        <!-- Product Content -->
+                        <div class="col-lg-6">
+                        <?php foreach ($result as $row): ?>
+                            <div class="details_content2">
+                                <div class="details_name2">Nama:</div>
+                                <div class="details_name"><span style="padding-left:5em"><?php echo $_SESSION['logged-in']['user'] ?></span></div>
+                                <div class="details_name2">Kewajiban Bayar:</div>
+                                <div class="details_name"><span style="padding-left:5em">Rp <?php echo number_format($row['r_harga_kmr'],2,",",".") ?></span></div>
+                            </div>
+                            <div class="text-center">
+                                <div class="button cart_button" name="upload"><a href="#">Kirim Bukti Pembayaran</a></div>
+                            </div>
+                        <?php endforeach; ?>
+                        <?php if(empty($result)): ?>
+                            <div class="details_content2">
+								<div class="details_name2">Nama:</div>
+								<div class="details_name"><span style="padding-left:5em"><?php echo $_SESSION['logged-in']['user'] ?></span></div>
+								<div class="details_name2">Kewajiban Bayar:</div>
+								<div class="details_name"><span style="padding-left:5em">-</span></div>
+                            </div>
+                        <?php endif; ?>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -192,10 +230,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
 <script src="plugins/greensock/animation.gsap.min.js"></script>
 <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
 <script src="plugins/easing/easing.js"></script>
 <script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="js/product.js"></script>
+<script src="js/cart.js"></script>
 </body>
 </html>

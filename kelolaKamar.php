@@ -128,7 +128,7 @@ if(isset($_REQUEST['del'])){
 						<!-- Name -->
 						<div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
 							<div class="cart_item_image">
-								<div><img src="images/kost.jpeg" alt=""></div>
+								<div><img src="<?php echo $row['r_gambar']?>" alt=""></div>
 							</div>
 							<div class="cart_item_name_container">
 								<div class="cart_item_name"><a href="#">Kamar <?php echo $row['r_namaruang']; ?></a></div>
@@ -144,7 +144,7 @@ if(isset($_REQUEST['del'])){
 						
 						<!-- Total -->
 						<div class="cart_item_total">
-                            <div class="button clear_cart_button"><a href="detailKamar.php">Ubah</a></div>
+                            <div class="button clear_cart_button"><a href="edit_kamar.php?id=<?php echo $row['id_ruangan']?>">Ubah</a></div>
 							<?php if(!empty($row['fk_user'])): ?>
                             	<div class="button clear_cart_button"><a href="upload.php">Pembayaran</a></div>
 							<?php else: ?>
@@ -174,7 +174,7 @@ if(isset($_REQUEST['del'])){
 			</div>
 			<?php endforeach; ?>
 			
-			<div class="button clear_cart_button"><a href="#">Tambah Kamar</a></div>
+			<div class="button clear_cart_button"><a href="tambah_kamar.php">Tambah Kamar</a></div>
 		</div>		
 	</div>
 

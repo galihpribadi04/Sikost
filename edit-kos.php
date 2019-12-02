@@ -1,37 +1,45 @@
 <?php session_start(); ?>
 <?php
-	// include database connection file
-	require_once 'conn.php';
-	if(isset($_REQUEST['cari'])){
-
+    // include database connection file
+    require_once'conn.php';
+    if(isset($_POST['update'])){
+        // Get the userid
+        $userid=$_SESSION['logged-in']['idkos'];
 		// Posted Values  
-		$cari=strval($_GET['search']);
-
-		$kos=$_SESSION['logged-in']['idkos'];
-		$nama=$_POST['nama'];
-		$harga=$_POST['harga'];
-		$luas=$_POST['luas'];
-		$fasil=$_POST['fasil'];
-
-		// Query for Insertion
-		$sql="SELECT d.*, p.p_id, p.p_namakos FROM pemilik p, datakos d WHERE d.fk_pemilik=p.p_id AND d.dk_alamat LIKE '%keputih%'";
-		//Prepare Query for Execution
-		$query = $db->prepare($sql);
-		// Bind the parameters
+		$folder="images/";
 		
-		$query->bindParam(':car',$cari,PDO::PARAM_STR);
-		
-		// Query Execution
-		// $query->execute();
-		// $result = $query->fetchAll(PDO::FETCH_ASSOC);
-		
-	}
+		if($_FILES['image']['type']){
+			$nama=$_POST['nama'];
+			$alamat=$_POST['alamat'];
+			$jenis=$_POST['jenis'];
+			$dir="$folder".$_FILES['image']['name'];
+			move_uploaded_file($_FILES['image']['tmp_name'], $dir);
+	
+			// Query for Query for Updation
+			$sql="UPDATE datakos SET dk_alamat=:ln,dk_jenis=:eml,dk_gambar=:gam WHERE fk_pemilik=:id";
+			//Prepare Query for Execution
+			$query = $db->prepare($sql);
+			// Bind the parameters
+			$query->bindParam(':fn',$nama,PDO::PARAM_STR);
+			$query->bindParam(':ln',$alamat,PDO::PARAM_STR);
+			$query->bindParam(':eml',$jenis,PDO::PARAM_STR);
+			$query->bindParam(':id',$userid,PDO::PARAM_STR);
+			$query->bindParam(':gam',$dir,PDO::PARAM_STR);
+			// Query Execution
+			$query->execute();
+			// Mesage after updation
+			echo "<script>alert('Record Updated successfully');</script>";
+			// Code for redirection
+			echo "<script>window.location.href='kelolaKamar.php'</script>"; 
+		}
+        
+    }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Product</title>
+<title>Tambah Kamar</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Sublime project">
@@ -46,12 +54,18 @@
 </head>
 <body>
 <?php 
-	require_once 'conn.php';
-
-	$query = $db->prepare('SELECT d.*, p.p_id, p.p_namakos FROM pemilik p, datakos d
-		WHERE d.fk_pemilik=p.p_id');
-	$query->execute();
-	$result = $query->fetchAll(PDO::FETCH_ASSOC);
+    // Get the userid
+    $userid=$_SESSION['logged-in']['idkos'];
+    $sql = "SELECT d.*, p.p_namakos FROM pemilik p, datakos d WHERE d.fk_pemilik=p.p_id AND p.p_id=:id";
+    //Prepare the query:
+    $query = $db->prepare($sql);
+    //Bind the parameters
+    $query->bindParam(':id',$userid,PDO::PARAM_STR);
+    //Execute the query:
+    $query->execute();
+    //Assign the data which you pulled from the database (in the preceding step) to a variable.
+    $results=$query->fetchAll(PDO::FETCH_OBJ);   
+    echo var_dump($results);         
 ?>
 <div class="super_container">
 
@@ -63,24 +77,15 @@
 				<div class="row">
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
-							<div class="logo"><a href="index.php">SIKos</a></div>
+							<div class="logo"><a href="index.html">SIKos</a></div>
 							<nav class="main_nav">
 								<?php if(isset($_SESSION['logged-in'])): ?>
-									<?php if($_SESSION['logged-in']['rights']==1): ?>	
-										<ul>
-											<!-- <li class="active"> -->
-											<li><a href="kamarku.php">Kamarku</a></li>
-											<!-- </li> -->
-											<li><a href="upload.php">Pembayaran</a></li>
-										</ul>
-									<?php elseif($_SESSION['logged-in']['rights']==3): ?>
-										<ul>
-											<!-- <li class="active"> -->
-											<li><a href="index.php">Verifikasi</a></li>
-											<!-- </li> -->
-											<li><a href="upload.php">Pembayaran</a></li>
-										</ul>
-									<?php endif ?>
+								<ul>
+									<li class="active">
+										<a href="indexP.php">Home</a>
+									</li>
+									<li><a href="kelolaKamar.php">Kelola Kamar</a></li>
+								</ul>
 								<?php else: ?>
 
 								<?php endif ?>
@@ -112,47 +117,51 @@
 			</div>
 		</div>
 
-		<!-- Social -->
-		
 	</header>
 
 	<!-- Menu -->
 
-	<!-- Products -->
+	<!--Upload form -->
 
 	<div class="products">
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
-					<div class="products_title">List Tempat Kos</div>
+					<div class="products_title">Daftarkan Kamar Kost Anda </div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					
-					<div class="product_grid">
-					<?php foreach($result as $row): ?>
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/kost.jpeg" alt=""></div>
-							<?php if($row['dk_jenis']=="Putra"):?>
-							<div class="product_extra product_putra"><a href="#">Putra</a></div>
-							<?php elseif($row['dk_jenis']=="Putri"):?>
-								<div class="product_extra product_putri"><a href="#">Putri</a></div>
-							<?php else:?>
-								<div class="product_extra product_campur"><a href="#">Campur</a></div>
-							<?php endif; ?>
-							<div class="product_content">
-								<div class="product_title"><a href="detailKos.php?id=<?php echo $row['p_id'] ?>"><?php echo $row['p_namakos']?></a></div>
-								<div class="product_price">Harga Mulai Rp 670.000</div>
-								<div class="product_description">Alamat: <?php echo $row['dk_alamat']?></div>
-							</div>
-						</div>
-
-					<?php endforeach; ?>	
-					</div>
-				</div>
-			</div>
+            </div>
+            
+			<div class="form">
+                
+				<form method="POST" enctype="multipart/form-data">
+			        <fieldset>
+			        <legend></legend>
+			        <p>
+						<b>Nama Kos</b>
+			            <span style="padding-left:2em"><input type="text" name="nama" value="<?php echo $results[0]->p_namakos; ?>"></span>
+			        </p>
+			        <p>
+						<b>Alamat</b>
+			            <span style="padding-left:3.3em"><input type="text" name="alamat" value="<?php echo $results[0]->dk_alamat?>"></span>
+			        </p>
+			        <p>
+						<b>Jenis</b>
+			            <span style="padding-left:4.5em"><input type="text" name="jenis" value="<?php echo $results[0]->dk_jenis?>"></span>
+			        </p>
+			        <p>
+			        	<table>
+							<h6>Upload foto kos anda disini</h6>
+							<tr><td><td><td><input type="file" name="image" value="upload gambar"/></td></tr>
+						</table>
+			        </p>
+			        <p>
+			            <input type="submit" name="update" value="Update">
+			        </p>
+			        
+			        </fieldset>
+			    </form>
+            </div>
+            
 		</div>
 	</div>
 

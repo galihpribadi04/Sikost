@@ -16,7 +16,22 @@
 <link rel="stylesheet" type="text/css" href="styles/product_responsive.css">
 </head>
 <body>
+<?php
+	require_once 'conn.php';
+	$userid=intval($_GET['id']);
 
+	$sql = "SELECT * FROM ruangan
+		WHERE id_ruangan=:id";
+    //Prepare the query:
+	$query = $db->prepare($sql);
+    //Bind the parameters
+	$query->bindParam(':id',$userid,PDO::PARAM_STR);
+    //Execute the query:
+	$query->execute();
+    //Assign the data which you pulled from the database (in the preceding step) to a variable.
+	$result=$query->fetchAll(PDO::FETCH_OBJ); 
+	
+?>
 <div class="super_container">
 
 	<!-- Header -->
@@ -79,65 +94,10 @@
 
 
 		<!-- Social -->
-		<div class="header_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
 	</header>
 
 	<!-- Menu -->
 
-	<div class="menu menu_mm trans_300">
-		<div class="menu_container menu_mm">
-			<div class="page_menu_content">
-							
-				<div class="page_menu_search menu_mm">
-					<form action="#">
-						<input type="search" required="required" class="page_menu_search_input menu_mm" placeholder="Search for products...">
-					</form>
-				</div>
-				<ul class="page_menu_nav menu_mm">
-					<li class="page_menu_item has-children menu_mm">
-						<a href="index.html">Home<i class="fa fa-angle-down"></i></a>
-						<!-- <ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Categories<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="product.html">Product<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="cart.html">Cart<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="checkout.html">Checkout<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-						</ul> -->
-					</li>
-					<li class="page_menu_item has-children menu_mm">
-						<a href="categories.html">Categories<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-						</ul>
-					</li>
-					<li class="page_menu_item menu_mm"><a href="index.html">Accessories<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="#">Offers<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="menu_close"><i class="fa fa-times" aria-hidden="true"></i></div>
-
-		<div class="menu_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
-	</div>
 	
 	<!-- Home -->
 
@@ -149,7 +109,7 @@
 				<!-- Product Image -->
 				<div class="col-lg-12">
 					<div class="details_image text-center">
-						<div class="details_image_large"><img src="images/kost.jpeg" alt=""></div>
+						<div class="details_image_large"><img src="<?php echo $result[0]->r_gambar?>" alt=""></div>
 					</div>
 				</div>
 
@@ -163,16 +123,11 @@
 					<!-- Product Content -->
 					<div class="col">
 						<div class="details_content">
-							<div class="details_name">Kamar #1</div>
-							<div class="details_price">Rp. 670.000</div>
+							<div class="details_name">Kamar <?php echo $result[0]->r_namaruang?></div>
+							<div class="details_price">Rp <?php echo number_format($result[0]->r_harga_kmr,2,",",".") ?></div>
 
 							<!-- In Stock -->
-							<div class="in_stock_container">
-								<div class="availability">Availability:</div>
-								<span>Masih Ada</span><br><br>
-								
-								
-							</div>
+							
 						</div>
 					</div>
 					<!-- Product Content -->
@@ -180,14 +135,14 @@
 						<div class="details_content">
 							<div class="details_name">Fasilitas</div>
 							<ul>
-								<li><div class="details_price">Kamar Mandi Dalam</div></li>
-								<li><div class="details_price">AC</div></li>
-								<li><div class="details_price">TV</div></li>
+								<li><div class="details_price"><?php echo $result[0]->r_fasil?></div></li>
+								<!-- <li><div class="details_price">AC</div></li>
+								<li><div class="details_price">TV</div></li> -->
 							</ul>
 
 							<div class="details_name">Luas Kamar</div>
 							<ul>
-								<li><div class="details_price">Kamar Mandi Dalam</div></li>
+								<li><div class="details_price"><?php echo $result[0]->r_ukuran_kmr?></div></li>
 							</ul>
 						</div>
 					</div>
@@ -195,7 +150,7 @@
 			</div>
 			<div class="text-center">
 			<?php if(isset($_SESSION['logged-in'])): ?>
-				<div class="button"><a href="upload.php">Book Now</a></div>
+				<div class="button"><a href="upload2.php?id=<?php echo $result[0]->id_ruangan ?>">Book Now</a></div>
 			<?php else: ?>
 				<div class="button"><a href="#">Book Now</a></div>
 			<?php endif ?>

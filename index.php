@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +26,12 @@
             
             header('Location: index.php');
         }
-    ?>
+	?>
+	<?php
+		if(isset($_POST['cari'])){
+			$caria=$_POST['search'];
+		}
+	?>
 <!-- end LogOut Logic -->
 
 <div class="super_container">
@@ -92,12 +98,14 @@
 	</header>
 
 	<!-- Home -->
-
+	
 	<div class="home">
 		<div class="wrapper">
 			<div class="search_box">
-				<input type="text" placeholder="Cari nama tempat atau alamat" name="">
-				<a href="map.php"><i class="fa fa-search" aria-hidden="true"></i></a>
+				<form method="POST">
+				<input type="text" placeholder="Cari nama tempat atau alamat" name="search">
+				<a href="listKos.php?search=<?php echo $caria?>"><i class="fa fa-search" name="cari" aria-hidden="true"></i></a>
+				</form>
 			</div>
 		</div>
 	</div>

@@ -1,4 +1,44 @@
 <?php session_start(); ?>
+<?php
+	// include database connection file
+	require_once'conn.php';
+	if(isset($_POST['upload'])){
+
+		// Posted Values  
+		$folder="images/";
+
+		$kos=$_SESSION['logged-in']['idkos'];
+		$nama=$_POST['nama'];
+		$harga=$_POST['harga'];
+		$luas=$_POST['luas'];
+		$fasil=$_POST['fasil'];
+		$dir=$folder.basename($_FILES["gambar"]["name"]);
+		move_uploaded_file($_FILES["gambar"]["tmp_name"], $dir);
+		
+
+		// Query for Insertion
+		$sql="INSERT INTO ruangan(r_bukti) VALUES(:gam)";
+		//Prepare Query for Execution
+		$query = $db->prepare($sql);
+		// Bind the parameters
+		$query->bindParam(':gam',$dir,PDO::PARAM_STR);
+		
+		// Query Execution
+		$query->execute();
+		// Check that the insertion really worked. If the last inserted id is greater than zero, the insertion worked.
+		$lastInsertId = $db->lastInsertId();
+		if($lastInsertId){
+			// Message for successfull insertion
+			echo "<script>alert('Kamar Sukses Ditambahkan');</script>";
+			echo "<script>window.location.href='kelolaKamar.php'</script>"; 
+		}
+		else {
+			// Message for unsuccessfull insertion
+			echo "<script>alert('Something went wrong. Please try again');</script>";
+			echo "<script>window.location.href='tambah_kamar.php'</script>"; 
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,7 +148,7 @@
                                 <form action="#" method="POST" enctype="multipart/form-data" style="padding: 150px">
                                     <table>
                                         <h5>Upload bukti pembayaran anda kesini</h5>
-                                        <tr><td><td><td><input type="file" value="upload"/></td></tr>
+                                        <tr><td><td><td><input type="file" name="gambar" value="upload"/></td></tr>
                                     </table>
                                 </form>
 				            </div>
@@ -125,7 +165,9 @@
                                 <div class="details_name"><span style="padding-left:5em">Rp <?php echo number_format($row['r_harga_kmr'],2,",",".") ?></span></div>
                             </div>
                             <div class="text-center">
-                                <div class="button cart_button"><a href="#">Kirim Bukti Pembayaran</a></div>
+								<form method="POST">
+								<div class="button cart_button"><button name="upload" type="submit"><a href="#">Kirim Bukti Pembayaran</a></button></div>
+								</form>
                             </div>
                         <?php endforeach; ?>
                         <?php if(empty($result)): ?>

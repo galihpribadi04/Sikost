@@ -16,7 +16,27 @@
 <link rel="stylesheet" type="text/css" href="styles/product_responsive.css">
 </head>
 <body>
+<?php
+	require_once 'conn.php';
+	$userid=intval($_GET['id']);
 
+	$sql = "SELECT d.*, p.*, r.* FROM pemilik p, datakos d, ruangan r
+		WHERE d.fk_pemilik=p.p_id AND r.fk_kos=p.p_id AND p.p_id=:id";
+	$sql2 = "SELECT p.p_namakos, d.dk_alamat FROM pemilik p, datakos d WHERE d.fk_pemilik=p.p_id AND p_id=:id";
+    //Prepare the query:
+	$query = $db->prepare($sql);
+	$query2 = $db->prepare($sql2);
+    //Bind the parameters
+	$query->bindParam(':id',$userid,PDO::PARAM_STR);
+	$query2->bindParam(':id',$userid,PDO::PARAM_STR);
+    //Execute the query:
+	$query->execute();
+	$query2->execute();
+    //Assign the data which you pulled from the database (in the preceding step) to a variable.
+	$result=$query->fetchAll(PDO::FETCH_ASSOC); 
+	$result2=$query2->fetchAll(PDO::FETCH_OBJ);
+	
+?>
 <div class="super_container">
 
 	<!-- Header -->
@@ -79,65 +99,10 @@
 
 
 		<!-- Social -->
-		<div class="header_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
+	
 	</header>
 
 	<!-- Menu -->
-
-	<div class="menu menu_mm trans_300">
-		<div class="menu_container menu_mm">
-			<div class="page_menu_content">
-							
-				<div class="page_menu_search menu_mm">
-					<form action="#">
-						<input type="search" required="required" class="page_menu_search_input menu_mm" placeholder="Search for products...">
-					</form>
-				</div>
-				<ul class="page_menu_nav menu_mm">
-					<li class="page_menu_item has-children menu_mm">
-						<a href="index.html">Home<i class="fa fa-angle-down"></i></a>
-						<!-- <ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Categories<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="product.html">Product<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="cart.html">Cart<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="checkout.html">Checkout<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-						</ul> -->
-					</li>
-					<li class="page_menu_item has-children menu_mm">
-						<a href="categories.html">Categories<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-						</ul>
-					</li>
-					<li class="page_menu_item menu_mm"><a href="index.html">Accessories<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="#">Offers<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="menu_close"><i class="fa fa-times" aria-hidden="true"></i></div>
-
-		<div class="menu_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
-	</div>
 	
 	<!-- Home -->
 
@@ -156,34 +121,21 @@
 				<!-- Product Content -->
 				<div class="col-lg-6">
 					<div class="details_content">
-						<div class="details_name">Kost Maju Mundur</div>
-						<div class="details_price">Rp. 670.000</div>
+						<div class="details_name"><?php echo $result2[0]->p_namakos?></div>
+						<div class="details_price">Alamat: <?php echo $result2[0]->dk_alamat?></div>
 
 						<div class="details_text">
-							<div class="description_text">
-								<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
+							<div class="rating">
+								<span  onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;"  class="fa fa-star checked"></span>
+								<span onmouseover="starmark(this)" onclick="starmark(this)" id="2one"  style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
+								<span onmouseover="starmark(this)" onclick="starmark(this)" id="3one"  style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
+								<span onmouseover="starmark(this)" onclick="starmark(this)" id="4one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+								<span onmouseover="starmark(this)" onclick="starmark(this)" id="5one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
 							</div>
 						</div>
-
-						<!-- Product Quantity -->
-						<!-- <div class="product_quantity_container">
-							<div class="product_quantity clearfix">
-								<span>Qty</span>
-								<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-								<div class="quantity_buttons">
-									<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
-									<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-								</div>
-							</div>
-							<div class="button cart_button"><a href="#">Add to cart</a></div>
-						</div>
- -->
-						<!-- Share -->
-						
 					</div>
 				</div>
-			</div>
-			
+			</div>	
 		</div>
 		</div>
 	</div>
@@ -202,35 +154,21 @@
 				<div class="col">
 					
 					<div class="product_grid">
-
+					<?php foreach($result as $row):?>
 						<!-- Product -->
 						<div class="product">
-							<div class="product_image"><img src="images/kost-1.jpg" alt=""></div>
-							<div class="product_extra product_tersedia"><a href="categories.html">Tersedia</a></div>
+							<div class="product_image"><img src="<?php echo $row['r_gambar']?>" alt=""></div>
+							<?php if($row['fk_user']==0): ?>
+								<div class="product_extra product_tidak"><a href="categories.html">Tidak Tersedia</a></div>
+							<?php else: ?>
+								<div class="product_extra product_tersedia"><a href="categories.html">Tersedia</a></div>
+							<?php endif; ?>
 							<div class="product_content">
-								<div class="product_title"><a href="detailKamar.php">Kamar #1</a></div>
-								<div class="product_price">Rp. 520.000</div>
+								<div class="product_title"><a href="detailKamar.php?id=<?php echo $row['id_ruangan']?>">Kamar <?php echo $row['r_namaruang'] ?></a></div>
+								<div class="product_price">Rp <?php echo number_format($row['r_harga_kmr'],2,",",".") ?></div>
 							</div>
 						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/kost-2.jpg" alt=""></div>
-							<div class="product_extra product_tidak"><a href="categories.html">Tidak Tersedia</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="detailKamar.php">Kamar #2</a></div>
-								<div class="product_price">Rp. 710.000</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/kost-3.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="detailKamar.php">Kamar #3</a></div>
-								<div class="product_price">Rp. 330.000</div>
-							</div>
-						</div>
+					<?php endforeach; ?>
 					</div>
 				</div>
 			</div>
